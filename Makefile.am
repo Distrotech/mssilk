@@ -13,13 +13,12 @@ plugins_LTLIBRARIES=libmssilk.la
 libmssilk_la_SOURCES=silk_dec.c silk_enc.c
 
 
-SILK_LIBS = -L${SILK_DIR} -lSKP_SILK_SDK
+SILK_LIBS = -L${SILK_DIR} -Wl,-lSKP_SILK_SDK
 libmssilk_la_LIBADD=\
 	$(ORTP_LIBS) \
-        $(MEDIASTREAMER_LIBS) \
-        $(SILK_LIBS)
+        $(MEDIASTREAMER_LIBS)
 
-libmssilk_la_LDFLAGS=-module -no-undefined
+libmssilk_la_LDFLAGS=-module -no-undefined $(SILK_LIBS)
 
 SILK_CFLAGS = -I$(SILK_DIR)/interface 
 AM_CFLAGS=      $(SILK_CFLAGS) \
