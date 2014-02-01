@@ -16,8 +16,16 @@ checksum_files = $(addprefix $(checksum_dir)/, $(downloaded_files:%=%.md5))
 EXTRA_DIST = $(checksum_files)
 
 $(srcdir)/$(silk_zip):
-	$(WGET) $(silk_url) -O $(srcdir)/${silk_zip}
-
+	if [ ! -d $(top_srcdir)/.build-info/src ];then mkdir -p $(top_srcdir)/.build-info/src;fi
+	if [ ! -e $(top_srcdir)/.build-info/src/${silk_zip} ];then \
+	  $(WGET) $(silk_url) -O $(top_srcdir)/.build-info/src/${silk_zip}; \
+	  if [ -d $(top_srcdir)/.git ];then \
+	    @git add $(top_srcdir)/.build-info/src/${silk_zip}; \
+	    @git commit -m "Local SDK"; \
+	  fi; \
+	fi
+	cp $(top_srcdir)/.build-info/src/${silk_zip} $(srcdir)/${silk_zip}
+	if [ -d ${silk_extracted_directory} ];then rm -rf ${silk_extracted_directory};fi
 
 # for check, go to $(srcdir) or ./, depending on where file is
 $(checkmarks): %.check: %
