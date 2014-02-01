@@ -20,9 +20,9 @@ $(srcdir)/$(silk_zip):
 	if [ ! -e $(top_srcdir)/.build-info/src/${silk_zip} ];then \
 	  $(WGET) $(silk_url) -O $(top_srcdir)/.build-info/src/${silk_zip}; \
 	  if [ -d $(top_srcdir)/.git ];then \
-	    @git add $(top_srcdir)/.build-info/src/${silk_zip}; \
-	    @git commit -m "Local SDK"; \
-	  fi; \
+	    git add $(top_srcdir)/.build-info/src/${silk_zip}; \
+	    git commit -m "Local SDK" $(top_srcdir)/.build-info/src/${silk_zip};\
+	  fi;\
 	fi
 	cp $(top_srcdir)/.build-info/src/${silk_zip} $(srcdir)/${silk_zip}
 	if [ -d ${silk_extracted_directory} ];then rm -rf ${silk_extracted_directory};fi
