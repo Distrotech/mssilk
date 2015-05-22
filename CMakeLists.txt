@@ -25,6 +25,9 @@ project(MSSILK C)
 set(VERSION "1.0.0")
 
 
+option(ENABLE_STATIC "Build static library (default is shared library)." NO)
+
+
 find_package(Mediastreamer2 REQUIRED)
 
 set(FLAVOUR "FIX")
@@ -47,16 +50,20 @@ set(SOURCE_FILES
 	silk_enc.c
 )
 
-add_library(mssilk SHARED ${SOURCE_FILES})
-set_target_properties(mssilk PROPERTIES VERSION 0)
-if(MSVC)
-	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Debug/libmssilk.pdb
-			DESTINATION bin
-			PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
-		)
+if(ENABLE_STATIC)
+	add_library(mssilk STATIC ${SOURCE_FILES})
+else()
+	add_library(mssilk SHARED ${SOURCE_FILES})
+	set_target_properties(mssilk PROPERTIES VERSION 0)
+	if(MSVC)
+		if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Debug/libmssilk.pdb
+				DESTINATION bin
+				PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+			)
+		endif()
+		set_target_properties(mssilk PROPERTIES PREFIX "lib")
 	endif()
-	set_target_properties(mssilk PROPERTIES PREFIX "lib")
 endif()
 target_link_libraries(mssilk ${LIBS})
 
