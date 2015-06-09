@@ -18,8 +18,8 @@ check-local: copy-sdk
 clean-local:
 	rm -rf $(silk_src_dir)
 
-#install-data-local: copy-sdk
-#	$(INSTALL) -D $(silk_src_dir)/$(silk_lib) $(DESTDIR)$(prefix)/lib/$(silk_lib)
+install-data-local: copy-sdk
+	$(INSTALL) -D $(silk_src_dir)/$(silk_lib) $(DESTDIR)$(prefix)/lib/$(silk_lib)
 
 EXTRA_DIST= \
 	./patch_pic.diff \
