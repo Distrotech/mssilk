@@ -481,9 +481,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>false</CompileAsWinRT>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\..\linphone\mediastreamer2\include;$(ProjectDir)..\..\..\..\linphone\oRTP\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Platform)'=='ARM'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_ARM_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Platform)'=='Win32'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Platform)'=='x64'">$(ProjectDir)..\..\..\sdk\SILK_SDK_SRC_v1.0.9\SILK_SDK_SRC_FIX_v1.0.9\interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
