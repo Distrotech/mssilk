@@ -28,7 +28,11 @@ set(VERSION "1.0.0")
 option(ENABLE_STATIC "Build static library (default is shared library)." NO)
 
 
-find_package(Mediastreamer2 REQUIRED)
+if(LINPHONE_BUILDER_GROUP_EXTERNAL_SOURCE_PATH_BUILDERS)
+	include("${EP_ms2_CONFIG_DIR}/Mediastreamer2Config.cmake")
+else()
+	find_package(Mediastreamer2 REQUIRED)
+endif()
 
 set(FLAVOUR "FIX")
 file(GLOB SILK_SOURCE_FILES "sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_${FLAVOUR}_v1.0.9/src/*.c")
