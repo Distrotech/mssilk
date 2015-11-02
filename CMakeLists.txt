@@ -22,7 +22,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 project(MSSILK C)
-set(VERSION "1.0.0")
+set(VERSION "1.0.2")
 
 
 option(ENABLE_STATIC "Build static library (default is shared library)." NO)
