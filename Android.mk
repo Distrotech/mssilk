@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libmssilk
 
-SILK_SRC=sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_ARM_v1.0.9/src
+SILK_SRC=sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_FIX_v1.0.9/src
 
 LOCAL_SRC_FILES = silk_enc.c silk_dec.c \
 $(SILK_SRC)/SKP_Silk_tables_NLSF_CB1_16.c \
@@ -114,35 +114,28 @@ $(SILK_SRC)/SKP_Silk_PLC.c \
 $(SILK_SRC)/SKP_Silk_resampler_private_IIR_FIR.c \
 $(SILK_SRC)/SKP_Silk_decode_core.c \
 $(SILK_SRC)/SKP_Silk_resampler_private_down4.c \
-$(SILK_SRC)/SKP_Silk_gain_quant.c
-
-ifeq ($(TARGET_ARCH),arm)
-LOCAL_SRC_FILES +=  \
-$(SILK_SRC)/SKP_Silk_warped_autocorrelation_FIX_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_private_ARMA4_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_private_IIR_FIR_arm.S \
-$(SILK_SRC)/SKP_Silk_lin2log_arm.S \
-$(SILK_SRC)/SKP_Silk_allpass_int_arm.S \
-$(SILK_SRC)/SKP_Silk_array_maxabs_arm.S \
-$(SILK_SRC)/SKP_Silk_decode_core_arm.S \
-$(SILK_SRC)/SKP_Silk_ana_filt_bank_1_arm.S \
-$(SILK_SRC)/SKP_Silk_inner_prod_aligned_arm.S \
-$(SILK_SRC)/SKP_Silk_sum_sqr_shift_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_private_down_FIR_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_up2_arm.S \
-$(SILK_SRC)/SKP_Silk_schur64_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_private_up2_HQ_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_down2_arm.S \
-$(SILK_SRC)/SKP_Silk_clz_arm.S \
-$(SILK_SRC)/SKP_Silk_prefilter_FIX_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_private_AR2_arm.S \
-$(SILK_SRC)/SKP_Silk_NLSF_VQ_sum_error_FIX_arm.S \
-$(SILK_SRC)/SKP_Silk_sigm_Q15_arm.S \
-$(SILK_SRC)/SKP_Silk_A2NLSF_arm.S \
-$(SILK_SRC)/SKP_Silk_resampler_rom_arm.S \
-$(SILK_SRC)/SKP_Silk_MA_arm.S \
-$(SILK_SRC)/SKP_Silk_div_oabi.c
-endif
+$(SILK_SRC)/SKP_Silk_gain_quant.c \
+$(SILK_SRC)/SKP_Silk_warped_autocorrelation_FIX.c \
+$(SILK_SRC)/SKP_Silk_resampler_private_ARMA4.c \
+$(SILK_SRC)/SKP_Silk_resampler_private_IIR_FIR.c \
+$(SILK_SRC)/SKP_Silk_lin2log.c \
+$(SILK_SRC)/SKP_Silk_array_maxabs.c \
+$(SILK_SRC)/SKP_Silk_decode_core.c \
+$(SILK_SRC)/SKP_Silk_ana_filt_bank_1.c \
+$(SILK_SRC)/SKP_Silk_inner_prod_aligned.c \
+$(SILK_SRC)/SKP_Silk_sum_sqr_shift.c \
+$(SILK_SRC)/SKP_Silk_resampler_private_down_FIR.c \
+$(SILK_SRC)/SKP_Silk_resampler_up2.c \
+$(SILK_SRC)/SKP_Silk_schur64.c \
+$(SILK_SRC)/SKP_Silk_resampler_private_up2_HQ.c \
+$(SILK_SRC)/SKP_Silk_resampler_down2.c \
+$(SILK_SRC)/SKP_Silk_prefilter_FIX.c \
+$(SILK_SRC)/SKP_Silk_resampler_private_AR2.c \
+$(SILK_SRC)/SKP_Silk_NLSF_VQ_sum_error_FIX.c \
+$(SILK_SRC)/SKP_Silk_sigm_Q15.c \
+$(SILK_SRC)/SKP_Silk_A2NLSF.c \
+$(SILK_SRC)/SKP_Silk_resampler_rom.c \
+$(SILK_SRC)/SKP_Silk_MA.c
 
 LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../linphone/oRTP/include \
@@ -151,7 +144,7 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/$(SILK_SRC)/../interface
 
 LOCAL_ARM_MODE := arm
-LOCAL_CFLAGS += -U__ARM_ARCH_5__ -U__ARM_ARCH_5T__
+LOCAL_CFLAGS += -U__ARM_ARCH_5__ -U__ARM_ARCH_5T__ -fPIC 
 
 include $(BUILD_STATIC_LIBRARY)
 
