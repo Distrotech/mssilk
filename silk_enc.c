@@ -329,9 +329,9 @@ extern MSFilterDesc ms_silk_dec_desc;
 #define MS_PLUGIN_DECLARE(type) type
 #endif
 
-MS_PLUGIN_DECLARE ( void ) libmssilk_init() {
-	ms_filter_register ( &ms_silk_enc_desc );
-	ms_filter_register ( &ms_silk_dec_desc );
+MS_PLUGIN_DECLARE ( void ) libmssilk_init(MSFactory* factory) {
+	ms_factory_register_filter(factory, &ms_silk_enc_desc );
+	ms_factory_register_filter(factory, &ms_silk_dec_desc );
 	ms_message ( " libmssilk " VERSION " plugin loaded" );
 }
 
