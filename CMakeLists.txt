@@ -21,12 +21,19 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 3.0)
-project(MSSILK C)
-set(VERSION "1.0.2")
+project(mssilk VERSION 1.0.2 LANGUAGES C)
 
 
-option(ENABLE_STATIC "Build static library (default is shared library)." NO)
+option(ENABLE_SHARED "Build shared library." YES)
+option(ENABLE_STATIC "Build static library." YES)
 
+
+include(GNUInstallDirs)
+
+if(NOT CMAKE_INSTALL_RPATH AND CMAKE_INSTALL_PREFIX)
+	set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
+	message(STATUS "Setting install rpath to ${CMAKE_INSTALL_RPATH}")
+endif()
 
 if(LINPHONE_BUILDER_GROUP_EXTERNAL_SOURCE_PATH_BUILDERS)
 	include("${EP_ms2_CONFIG_DIR}/Mediastreamer2Config.cmake")
@@ -43,7 +50,7 @@ include_directories(
 	sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_${FLAVOUR}_v1.0.9/interface
 )
 
-add_definitions(-DVERSION=\"${VERSION}\")
+add_definitions(-DVERSION=\"${PROJECT_VERSION}\")
 
 
 set(LIBS ${MEDIASTREAMER2_LIBRARIES})
@@ -54,26 +61,35 @@ set(SOURCE_FILES
 	silk_enc.c
 )
 
+add_library(mssilk-objects OBJECT ${SOURCE_FILES})
+set_target_properties(mssilk-objects PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+
 if(ENABLE_STATIC)
-	add_library(mssilk STATIC ${SOURCE_FILES})
-else()
-	add_library(mssilk SHARED ${SOURCE_FILES})
+	add_library(mssilk-static STATIC ${SOURCE_FILES})
+	set_target_properties(mssilk-static PROPERTIES OUTPUT_NAME mssilk)
+	target_link_libraries(mssilk-static ${LIBS})
+	install(TARGETS mssilk-static
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+	)
+endif()
+if(ENABLE_SHARED)
+	add_library(mssilk MODULE ${SOURCE_FILES})
 	set_target_properties(mssilk PROPERTIES VERSION 0)
+	target_link_libraries(mssilk ${LIBS})
 	if(MSVC)
 		if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Debug/libmssilk.pdb
-				DESTINATION bin
+				DESTINATION ${CMAKE_INSTALL_BINDIR}
 				PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 			)
 		endif()
 		set_target_properties(mssilk PROPERTIES PREFIX "lib")
 	endif()
+	install(TARGETS mssilk
+		RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/mediastreamer/plugins
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/mediastreamer/plugins
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/mediastreamer/plugins
+		PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+	)
 endif()
-target_link_libraries(mssilk ${LIBS})
-
-install(TARGETS mssilk
-	RUNTIME DESTINATION lib/mediastreamer/plugins
-	LIBRARY DESTINATION lib/mediastreamer/plugins
-	ARCHIVE DESTINATION lib/mediastreamer/plugins
-	PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
-)
