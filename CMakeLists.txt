@@ -69,7 +69,7 @@ if(ENABLE_STATIC)
 	set_target_properties(mssilk-static PROPERTIES OUTPUT_NAME mssilk)
 	target_link_libraries(mssilk-static ${LIBS})
 	install(TARGETS mssilk-static
-		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/mediastreamer/plugins
 		PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
 	)
 endif()
