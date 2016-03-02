@@ -61,9 +61,6 @@ set(SOURCE_FILES
 	silk_enc.c
 )
 
-add_library(mssilk-objects OBJECT ${SOURCE_FILES})
-set_target_properties(mssilk-objects PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
-
 if(ENABLE_STATIC)
 	add_library(mssilk-static STATIC ${SOURCE_FILES})
 	set_target_properties(mssilk-static PROPERTIES OUTPUT_NAME mssilk)
