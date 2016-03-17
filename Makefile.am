@@ -1,4 +1,4 @@
-EXTRA_DIST=autogen.sh mssilk.iss.in 
+EXTRA_DIST=autogen.sh mssilk.iss.in CMakeLists.txt
 SILK_VERSION = 1.0.9
 #SILK_DIR=$(srcdir)/sdk/SILK_SDK_SRC_v$(SILK_VERSION)/SILK_SDK_SRC_$(SILK_FLAVOUR)_v$(SILK_VERSION)
 SILK_DIR=$(top_builddir)/sdk/SILK_SDK_SRC_v$(SILK_VERSION)/SILK_SDK_SRC_$(SILK_FLAVOUR)_v$(SILK_VERSION)
