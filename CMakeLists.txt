@@ -44,6 +44,8 @@ endif()
 set(FLAVOUR "FIX")
 file(GLOB SILK_SOURCE_FILES "sdk/SILK_SDK_SRC_v1.0.9/SILK_SDK_SRC_${FLAVOUR}_v1.0.9/src/*.c")
 
+# turn off warnings for the sdk compilation since we won't fix them
+set_source_files_properties(${SILK_SOURCE_FILES} PROPERTIES COMPILE_FLAGS -w)
 
 include_directories(
 	${MEDIASTREAMER2_INCLUDE_DIRS}
