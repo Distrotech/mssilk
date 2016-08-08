@@ -21,7 +21,7 @@
 ############################################################################
 
 cmake_minimum_required(VERSION 3.0)
-project(mssilk VERSION 1.0.2 LANGUAGES C)
+project(mssilk VERSION 1.1.0 LANGUAGES C)
 
 
 option(ENABLE_SHARED "Build shared library." YES)
